@@ -16,7 +16,7 @@ from src.config.config import config
 
 class Auth:
     pwd_context = CryptContext(schemes=["bcrypt"], deprecated="auto")
-    SECRET_KEY = config.SECRET_KEY
+    SECRET_KEY = config.SECRET_KEY_JWT
     ALGORITHM = config.ALGORITHM
     cache = redis.Redis(
         host=config.REDIS_DOMAIN,

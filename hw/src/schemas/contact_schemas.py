@@ -1,7 +1,6 @@
 import re
 from datetime import datetime, date
 from pydantic import BaseModel, EmailStr, Field, validator
-from typing import Literal
 
 
 class ContactSchema(BaseModel):
