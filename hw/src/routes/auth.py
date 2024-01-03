@@ -1,5 +1,3 @@
-from urllib import request
-
 from fastapi import APIRouter, HTTPException, Depends, status, BackgroundTasks, Request
 from fastapi.security import OAuth2PasswordRequestForm, HTTPAuthorizationCredentials, HTTPBearer
 from sqlalchemy.ext.asyncio import AsyncSession
@@ -15,7 +13,7 @@ get_refresh_token = HTTPBearer()
 
 
 @router.post("/signup", response_model=UserResponseSchema, status_code=status.HTTP_201_CREATED)
-async def signup(body: UserSchema, bg: BackgroundTasks, db: AsyncSession = Depends(get_async_session)):
+async def signup(body: UserSchema, bt: BackgroundTasks, request: Request, db: AsyncSession = Depends(get_async_session)):
     existing_user = await rep_users.get_user_by_email(body.email, db)
     if existing_user:
         raise HTTPException(status_code=status.HTTP_409_CONFLICT, detail="Account already exists")
@@ -23,7 +21,7 @@ async def signup(body: UserSchema, bg: BackgroundTasks, db: AsyncSession = Depen
     body.password = auth_service.get_password_hash(body.password)
     new_user = await rep_users.create_user(body, db)
     # TODO send email notification
-    bg.add_task(send_email, new_user.email, new_user.username, str(request.base_url))
+    bt.add_task(send_email, new_user.email, new_user.username, str(request.base_url))
     return new_user
 
 

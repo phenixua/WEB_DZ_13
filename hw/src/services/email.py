@@ -13,11 +13,11 @@ conf = ConnectionConfig(
     MAIL_FROM=config.MAIL_USERNAME,
     MAIL_PORT=config.MAIL_PORT,
     MAIL_SERVER=config.MAIL_SERVER,
-    MAIL_FROM_NAME="Global BASE of Contacts",
-    MAIL_STARTTLS=True,
-    MAIL_SSL_TLS=False,
+    MAIL_FROM_NAME="Phenix corporation",
+    MAIL_STARTTLS=False,
+    MAIL_SSL_TLS=True,
     USE_CREDENTIALS=True,
-    VALIDATE_CERTS=False,
+    VALIDATE_CERTS=True,
     TEMPLATE_FOLDER=Path(__file__).parent / 'templates',)
 
 
@@ -25,7 +25,7 @@ async def send_email(email: EmailStr, username: str, host: str):
     try:
         token_verification = await auth_service.create_email_token({"sub": email})
         message = MessageSchema(
-            subject="Confirm your email, please",
+            subject="Confirm your email address",
             recipients=[email],
             template_body={"host": host, "username": username, "token": token_verification},
             subtype=MessageType.html)
