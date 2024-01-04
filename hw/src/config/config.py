@@ -16,9 +16,9 @@ class Settings(BaseSettings):
     REDIS_DOMAIN: str = 'localhost'
     REDIS_PORT: int = 6379
     REDIS_PASSWORD: str | None = None
-    CLOUDINARY_NAME: str = 'abc'
-    CLOUDINARY_API_KEY: int = 326488457974591
-    CLOUDINARY_API_SECRET: str = "secret"
+    CLOUDINARY_NAME: str = 'deh9rrzak'
+    CLOUDINARY_API_KEY: int = 427453781169512
+    CLOUDINARY_API_SECRET: str = "MpkraDG6XpeLcJgL0u4GjRkM4dw"
 
     # валідація власних параметрів
     @field_validator("ALGORITHM")
